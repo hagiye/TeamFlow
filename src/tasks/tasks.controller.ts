@@ -1,6 +1,6 @@
-import { Controller, Get, Param, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Param, ParseIntPipe, Post, Body } from '@nestjs/common';
 import { TasksService } from './tasks.service.js';  
-
+import { CreateTaskDto } from './dto/create-task.dto/create-task.dto.js';
 @Controller('tasks')
 export class TasksController {
     constructor(
@@ -16,6 +16,11 @@ export class TasksController {
     @Get(':id')
     findOne(@Param('id',ParseIntPipe) id:number){
         return this.taskService.findOne(id);
+
+    }
+    @Post()
+    create(@Body() createTaskDto: CreateTaskDto){
+        return this.taskService.create(createTaskDto);
 
     }
 
